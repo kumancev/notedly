@@ -1,14 +1,43 @@
-import express from "express"
-import { ApolloServer, gql } from "apollo-server-express"
+import express from 'express'
+import { ApolloServer, gql } from 'apollo-server-express'
 
-const app = express()
+let notes = [
+  { id: '1', content: 'This is a note', author: 'Adam Scott' },
+  { id: '2', content: 'This is another note', author: 'Harlow Everly' },
+  { id: '3', content: 'Oh hey look, another note!', author: 'Riley Harrison' },
+]
+
 const port = process.env.PORT || 4000
 
 const typeDefs = gql`
+  type Note {
+    id: ID!
+    content: String!
+    author: String!
+  }
   type Query {
-    hello: String
+    hello: String!
+    notes: [Note!]!
+    note(id: ID!): Note!
   }
 `
+const resolvers = {
+  Query: {
+    hello: () => 'Hello world!',
+    notes: () => notes,
+    note: (parent, args) => {
+      return notes.find(note => note.id === args.id)
+    },
+  },
+}
 
-app.get('/', (req, res) => res.send('Hello Web Server'));
-app.listen(port, () => console.log(`Server running at http://localhost:${port}`))
+const app = express()
+
+const server = new ApolloServer({ typeDefs, resolvers })
+server.applyMiddleware({ app, path: '/api' })
+
+app.listen({ port }, () =>
+  console.log(
+    `GraphQL Server running at http://localhost:${port}${server.graphqlPath}`
+  )
+)
