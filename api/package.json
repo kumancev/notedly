@@ -5,8 +5,8 @@
   "description": "API",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
-    "dev": "nodemon src/index.js",
+    "start": "NODE_OPTIONS='--experimental-specifier-resolution=node' nodemon src/index.js",
+    "dev": "NODE_OPTIONS='--experimental-specifier-resolution=node' nodemon src/index.js",
     "final": "nodemon final/index.js",
     "seed": "node final/util/seed/index.js",
     "lint": "eslint \"src/**/*.js\""
