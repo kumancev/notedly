@@ -1,0 +1,7 @@
+export const notes = async (parent, args, { models }) => {
+  return await models.Note.find()
+}
+
+export const note = async (parent, args, { models }) => {
+  return await models.Note.findById(args.id)
+}
