@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const noteSchema = new mongoose.Schema(
+const NoteSchema = new mongoose.Schema(
   {
     content: {
       type: String,
@@ -16,6 +16,6 @@ const noteSchema = new mongoose.Schema(
   }
 )
 
-const Note = mongoose.model('Note', noteSchema)
+const Note = mongoose.model('Note', NoteSchema)
 
 export default Note

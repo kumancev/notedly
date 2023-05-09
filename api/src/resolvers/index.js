@@ -1,5 +1,5 @@
 import { notes, note } from './query'
-import { newNote, deleteNote, updateNote } from './mutation'
+import { newNote, deleteNote, updateNote, signUp, signIn } from './mutation'
 import GraphQLDateTime from 'graphql-iso-date'
 
 export default {
@@ -11,6 +11,8 @@ export default {
     newNote,
     deleteNote,
     updateNote,
+    signUp,
+    signIn,
   },
   DateTime: {
     GraphQLDateTime,
