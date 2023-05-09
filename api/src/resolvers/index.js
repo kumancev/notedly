@@ -1,5 +1,5 @@
 import { notes, note } from './query'
-import { newNote } from './mutation'
+import { newNote, deleteNote, updateNote } from './mutation'
 
 export default {
   Query: {
@@ -8,5 +8,7 @@ export default {
   },
   Mutation: {
     newNote,
+    deleteNote,
+    updateNote,
   },
 }
