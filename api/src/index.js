@@ -1,5 +1,6 @@
 import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
+import jwt from 'jsonwebtoken'
 import { connect, close } from './db'
 import typeDefs from './schema'
 import models from './models'
@@ -14,11 +15,24 @@ const app = express()
 
 connect(DB_HOST)
 
+const getUser = token => {
+  if (token) {
+    try {
+      return jwt.verify(token, process.env.JWT_SECRET)
+    } catch (err) {
+      new Error('Session invalid')
+    }
+  }
+}
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: () => {
-    return { models }
+    const token = req.headers.authorization
+    const user = getUser(token)
+    console.log(user)
+    return { models, user }
   },
 })
 server.applyMiddleware({ app, path: '/api' })
