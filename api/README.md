@@ -1,2 +1,2 @@
-# API
+# Notedly API
 
